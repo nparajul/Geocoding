@@ -1,0 +1,147 @@
+doctype html
+html(lang='en')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    
+    // Bootstrap CSS
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+
+    // Map Box script and css
+    script(src='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js')
+    link(href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css', rel='stylesheet')
+    script(src="Javascripts/geocoding.js")    
+    link(rel='stylesheet', type='text/css', href='/Stylesheets/contactStyle.css')
+    title Contact Info
+    
+  body
+    
+    nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
+        a.navbar-brand(href='/mailer') Final Project
+        button.navbar-toggler(data-toggle='collapse' data-target='#navbarMenu')
+            span.navbar-toggler-icon
+        #navbarMenu.collapse.navbar-collapse
+            ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href='/mailer') Add a User
+                li.nav-item
+                    a.nav-link(href='/contacts') Contacts
+        form.form-inline(action='/logout', method='GET')
+            input#searchTable.form-control.mr-sm-2(type='search', placeholder='Search Users', aria-label='Search')
+            button.btn.btn-danger(type='submit') Logout
+       
+
+    
+
+    #container.card
+  
+        
+      .row
+        // div for contact info
+        .col
+            table#searchtable.table.table-hover.clickable.table-light
+              thead
+                tr
+                  th(scope='col') Name
+                  th(scope='col') Address
+                  th(scope='col') Phone
+                  th(scope='col') Email
+                  th(scope='col') Contact By Mail
+                  th(scope='col') Contact By Phone
+                  th(scope='col') Contact By Email
+                  th(scope='col') Update
+                  th(scope='col') Delete
+              tbody#tableBody
+                  each obj in data
+                    -const prefix = obj.prefix
+                    -const fullName = obj.firstName + " " + obj.lastName
+                    -const fullAddress = obj.street + " " + obj.city + " " + obj.state + " " + obj.zip
+                    -const email = obj.email
+                    -const phone = obj.phone
+                    -const id = obj.id
+                    -const contactByEmail = obj.contactByEmail
+                    tr.clickable-row(data-prefix=prefix, data-name=fullName, data-address=fullAddress, data-lat= obj.lat, data-lng=obj.lng, data-phone=phone, data-email=email, data-id=id, data-contactByEmail=contactByEmail)
+
+                      th(scope='row') #{obj.prefix} #{obj.firstName} #{obj.lastName}
+                      td #{obj.street} #{obj.city} #{obj.state} #{obj.zip}
+                      td #{obj.phone}
+                      td #{obj.email}
+                      td #{obj.contactByMail}
+                      td #{obj.contactByPhone}
+                      td #{obj.contactByEmail}
+                      td: button#updateButton.btn.btn(type='button', data-id=obj.id, data-prefix=obj.prefix, data-firstName=obj.firstName, data-lastName=obj.lastName, data-street=obj.street, data-city=obj.city, data-state=obj.state, data-zip=obj.zip, data-email=obj.email, data-phone=obj.phone, data-contactByMail=obj.contactByMail, data-contactByEmail=obj.contactByEmail, data-contactByPhone=obj.contactByPhone) Update
+                      td: button#deleteButton.btn.btn(type='button', data-id=obj.id) Delete
+      .row
+
+    #map  
+    
+    form#updateForm(method="POST" action="/contacts")
+      .form-row
+        .form-check.form-check-inline.col-md-1
+          input.form-check-input(type='radio', name='prefix', value='Mr.', id="radio1", checked)
+          label.form-check-label(for='inlineCheckbox1', checked='checked') Mr.
+        .form-check.form-check-inline.col-md-1
+          input.form-check-input(type='radio', name='prefix', value='Mrs.', id="radio2")
+          label.form-check-label(for='inlineCheckbox2') Mrs.
+        .form-check.form-check-inline.col-md-1
+          input.form-check-input(type='radio', name='prefix', value='Ms.', id="radio3")
+          label.form-check-label(for='inlineCheckbox2') Ms.
+        .form-check.form-check-inline.col-md-1
+          input.form-check-input(type='radio', name='prefix', value='Dr.', id="radio4")
+          label.form-check-label(for='inlineCheckbox2') Dr.
+      .form-row
+        .form-group.col-md-6
+          label(for='first') First Name:
+          input#first.form-control( name='firstName', type='text', placeholder='First Name')
+        .form-group.col-md-6
+          label(for='last') Last Name
+          input#last.form-control(name='lastName', type='text', placeholder='Last Name')
+      .form-row
+        .form-group.col-md-5
+          label(for='inputAddress') Street
+          input#inputAddress.form-control(type='text', name='street', placeholder='Street')
+        .form-group.col-md-4
+          label(for='inputCity') City
+          input#inputCity.form-control(type='text', name='city', placeholder='City')
+        .form-group.col-md-3
+          label(for='inputState') State
+          select#inputState.form-control(name='state')
+            option(selected='') Choose...
+            option(value='CT') CT
+            option(value='NJ') NJ
+            option(value='NY') NY
+            option(value='PA') PA
+      .form-row
+        .form-group.col-md-6
+          label(for='inputZip') Zip
+          input#inputZip.form-control(type='text', name='zip', placeholder='Zip')
+        .form-group.col-md-6
+          label(for='phoneNum') Contact Number
+          input#inputPhone.form-control(type='text', name='phoneNum', placeholder='Phone')
+
+      // Email
+      .form-row
+        .form-group.col-md-6
+          label(for='email') Email
+          input#inputEmail.form-control(type='email', name='emailAdd', placeholder='Email')
+      // Prefix
+      .form-row
+        span.col-md-4 How may we contact you?
+        .form-check.form-check-inline.col-md-2
+          input#phonecheck.form-check-input(type='checkbox', name='phone', value='Phone')
+          label.form-check-label(for='inlineCheckbox1') Phone
+        .form-check.form-check-inline.col-md-2
+          input#mailcheck.form-check-input(type='checkbox', name='mail', value='Mail')
+          label.form-check-label(for='inlineCheckbox2') Mail
+        .form-check.form-check-inline.col-md-2
+          input#emailcheck.form-check-input(type='checkbox', name='email', value='Email')
+          label.form-check-label(for='inlineCheckbox2') Email
+        .form-check.form-check-inline.col-md-1
+          input#allcheck.form-check-input(type='checkbox', name='any', value='Any')
+          label.form-check-label(for='inlineCheckbox2') Any
+          input#custId(type='hidden', name='custId')
+
+      br
+      button#saveButton.btn.btn-primary() Save

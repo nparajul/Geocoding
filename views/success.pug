@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+  head
+    title=Contact
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name="viewport", content='width=device-width, initial-scale=1, shrink-to-fit=no')
+
+    //Bootstrap CSS
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+    link(rel='stylesheet', type='text/css', href='/Stylesheets/style.css')
+
+  body
+    #container.container
+    
+        .col-sm
+          h3 Thank You
+          h4 The following information has been saved
+          ul.list-group.list-group-flush
+            li.list-group-item Name: #{toSend.fullName}
+            li.list-group-item Address: #{toSend.address}
+            li.list-group-item Contact by Phone: #{toSend.contactByPhone}
+            li.list-group-item Contact by Mail: #{toSend.contactByMail}
+            li.list-group-item Contact by Email: #{toSend.contactByEmail}
+      
+        div.col-md-10
+        form(action='/contacts' method='GET')
+          button#viewallbtn.btn.btn-success(type='submit') View All Contacts

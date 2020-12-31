@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Contacts-Login
+    link(rel='stylesheet', type='text/css', href='/Stylesheets/loginstyle.css')
+
+  body
+    .container
+      .card.card-container
+        h1 Login
+          form.form-signin(action='/login', method="POST")
+            input#inputEmail.form-control(type='text', placeholder='Username', required='', autofocus='' name='username')
+            input#inputPassword.form-control(type='password', placeholder='Password', required='' name='password')
+            br
+            button.btn.btn-lg.btn-primary.btn-block.btn-signin(type='submit') Sign in

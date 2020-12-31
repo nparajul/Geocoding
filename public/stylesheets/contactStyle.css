@@ -1,0 +1,65 @@
+body, html{
+	background-repeat: no-repeat;
+	background-size: cover;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+#map{
+	height: 500px;
+    width:90%;
+    margin: auto;
+    margin-top: 2px;
+	border:solid black;
+}
+
+#updateForm{
+	margin: auto;
+    width: 50%;
+    margin-top: 2%;
+    padding: 10px;
+    background-color: #f2f2f2;
+    font-size: 14px;
+
+}
+
+#searchtable {
+    height: 30em;
+    font-size: 11px;
+}
+table {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 90%;
+}
+table thead {
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+table tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+table tbody tr {
+    width: 100%;
+}
+table thead, table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+#updateButton{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-size: 15px;
+    background-color: #4CAF50;
+}
+
+#deleteButton{
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        font-size: 15px;
+        background-color: lightcoral;
+}
